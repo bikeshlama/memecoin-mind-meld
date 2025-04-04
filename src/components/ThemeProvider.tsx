@@ -33,6 +33,11 @@ export function ThemeProvider({
 
   useEffect(() => {
     const root = window.document.documentElement;
+    
+    // Add a class for transition before changing theme
+    root.classList.add('transition-colors');
+    root.style.setProperty('transition-duration', '300ms');
+    
     root.classList.remove("light", "dark");
 
     if (theme === "system") {
@@ -46,6 +51,24 @@ export function ThemeProvider({
     }
 
     root.classList.add(theme);
+  }, [theme]);
+
+  // Listen for system theme changes
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    
+    const handleChange = () => {
+      if (theme === "system") {
+        const root = window.document.documentElement;
+        root.classList.remove("light", "dark");
+        root.classList.add(
+          mediaQuery.matches ? "dark" : "light"
+        );
+      }
+    };
+    
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
   }, [theme]);
 
   const value = {
