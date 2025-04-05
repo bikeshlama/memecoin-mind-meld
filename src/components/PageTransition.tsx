@@ -27,6 +27,20 @@ const pageTransition = {
   duration: 0.5
 };
 
+// Add animations for children elements
+const childVariants = {
+  initial: { opacity: 0 },
+  in: { opacity: 1 },
+  out: { opacity: 0 }
+};
+
+const childTransition = {
+  type: "tween",
+  ease: "easeInOut",
+  duration: 0.3,
+  staggerChildren: 0.1
+};
+
 export function PageTransition({ children }: PageTransitionProps) {
   return (
     <motion.div
@@ -35,8 +49,14 @@ export function PageTransition({ children }: PageTransitionProps) {
       exit="out"
       variants={pageVariants}
       transition={pageTransition}
+      className="overflow-hidden"
     >
-      {children}
+      <motion.div
+        variants={childVariants}
+        transition={childTransition}
+      >
+        {children}
+      </motion.div>
     </motion.div>
   );
 }

@@ -11,7 +11,9 @@ import NotFound from "./pages/NotFound";
 import TokenAnalyzer from "./pages/TokenAnalyzer";
 import ScamDetector from "./pages/ScamDetector";
 import Glossary from "./pages/Glossary";
+import Pricing from "./pages/Pricing";
 import { AnimatePresence } from "framer-motion";
+import { PageTransition } from "./components/PageTransition";
 
 const queryClient = new QueryClient();
 
@@ -22,11 +24,12 @@ const AnimatedRoutes = () => {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Index />} />
-        <Route path="/token-analyzer" element={<TokenAnalyzer />} />
-        <Route path="/scam-detector" element={<ScamDetector />} />
-        <Route path="/glossary" element={<Glossary />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path="/" element={<PageTransition><Index /></PageTransition>} />
+        <Route path="/token-analyzer" element={<PageTransition><TokenAnalyzer /></PageTransition>} />
+        <Route path="/scam-detector" element={<PageTransition><ScamDetector /></PageTransition>} />
+        <Route path="/glossary" element={<PageTransition><Glossary /></PageTransition>} />
+        <Route path="/pricing" element={<PageTransition><Pricing /></PageTransition>} />
+        <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
       </Routes>
     </AnimatePresence>
   );

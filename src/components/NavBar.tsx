@@ -1,10 +1,10 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from './ModeToggle';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Coins, Menu, Search, Shield } from 'lucide-react';
+import { Coins, Menu, Search, Shield, LogIn, UserPlus } from 'lucide-react';
 
 const NavBar = () => {
   return (
@@ -12,7 +12,7 @@ const NavBar = () => {
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-2">
           <Link to="/" className="flex items-center gap-2">
-            <Shield className="h-8 w-8 text-meme-purple" />
+            <Shield className="h-8 w-8 text-meme-purple animate-pulse" />
             <span className="font-bold text-xl text-gradient hidden sm:inline-block">MemeGuardian</span>
           </Link>
         </div>
@@ -31,10 +31,26 @@ const NavBar = () => {
           <Link to="/glossary" className="font-medium transition-colors hover:text-primary">
             Glossary
           </Link>
+          <Link to="/pricing" className="font-medium transition-colors hover:text-primary">
+            Pricing
+          </Link>
         </div>
         
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
+          {/* Auth buttons for desktop */}
+          <div className="hidden md:flex items-center gap-2">
+            <Button variant="outline" size="sm" className="transition-all hover:scale-105">
+              <LogIn className="mr-1 h-4 w-4" />
+              Sign In
+            </Button>
+            <Button size="sm" className="bg-meme-gradient hover:opacity-90 transition-all hover:scale-105">
+              <UserPlus className="mr-1 h-4 w-4" />
+              Sign Up
+            </Button>
+          </div>
+          
           <ModeToggle />
+          
           {/* Mobile menu */}
           <Sheet>
             <SheetTrigger asChild className="md:hidden">
@@ -60,6 +76,21 @@ const NavBar = () => {
                   <Search className="h-5 w-5" />
                   <span>Glossary</span>
                 </Link>
+                <Link to="/pricing" className="flex items-center gap-3 px-2 py-1 rounded-md hover:bg-accent">
+                  <Coins className="h-5 w-5" />
+                  <span>Pricing</span>
+                </Link>
+                
+                <div className="border-t pt-4 mt-2 flex flex-col gap-2">
+                  <Button variant="outline" className="w-full justify-start">
+                    <LogIn className="mr-2 h-4 w-4" />
+                    Sign In
+                  </Button>
+                  <Button className="w-full justify-start bg-meme-gradient hover:opacity-90">
+                    <UserPlus className="mr-2 h-4 w-4" />
+                    Sign Up
+                  </Button>
+                </div>
               </div>
             </SheetContent>
           </Sheet>
