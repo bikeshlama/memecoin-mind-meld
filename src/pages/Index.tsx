@@ -3,7 +3,7 @@ import React from 'react';
 import NavBar from '@/components/NavBar';
 import Hero from '@/components/Hero';
 import { Button } from '@/components/ui/button';
-import { Check, ChevronRight, BarChart, ShieldCheck, HeartPulse, Zap, ArrowRight, Check, Gem } from 'lucide-react';
+import { ChevronRight, BarChart, ShieldCheck, HeartPulse, Zap, ArrowRight, Check, Gem } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { motion } from 'framer-motion';
