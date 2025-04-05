@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from './ModeToggle';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Coins, Menu, Search, Shield, LogIn, UserPlus } from 'lucide-react';
+import { Coins, Menu, Search, Shield, UserPlus } from 'lucide-react';
 
 const NavBar = () => {
   return (
@@ -37,12 +37,8 @@ const NavBar = () => {
         </div>
         
         <div className="flex items-center gap-3">
-          {/* Auth buttons for desktop */}
-          <div className="hidden md:flex items-center gap-2">
-            <Button variant="outline" size="sm" className="transition-all hover:scale-105">
-              <LogIn className="mr-1 h-4 w-4" />
-              Sign In
-            </Button>
+          {/* Only Sign Up button for desktop */}
+          <div className="hidden md:flex items-center">
             <Button size="sm" className="bg-meme-gradient hover:opacity-90 transition-all hover:scale-105">
               <UserPlus className="mr-1 h-4 w-4" />
               Sign Up
@@ -81,11 +77,7 @@ const NavBar = () => {
                   <span>Pricing</span>
                 </Link>
                 
-                <div className="border-t pt-4 mt-2 flex flex-col gap-2">
-                  <Button variant="outline" className="w-full justify-start">
-                    <LogIn className="mr-2 h-4 w-4" />
-                    Sign In
-                  </Button>
+                <div className="border-t pt-4 mt-2">
                   <Button className="w-full justify-start bg-meme-gradient hover:opacity-90">
                     <UserPlus className="mr-2 h-4 w-4" />
                     Sign Up
