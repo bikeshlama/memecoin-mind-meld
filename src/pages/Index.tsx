@@ -5,7 +5,7 @@ import NavBar from '@/components/NavBar';
 import AiMessage from '@/components/AiMessage';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Send, TrendingUp, Shield, Coins, Users, BookOpen, MessageCirclePlus, MessageCircleCode, Rocket, Info, HelpCircle, BarChart3, LineChart, PieChart, ArrowUpRight } from 'lucide-react';
+import { Send, TrendingUp, Shield, Coins, Users, BookOpen, MessageCirclePlus, MessageCircleCode, Rocket, Info, HelpCircle, BarChart3, LineChart, PieChart, ArrowUpRight, Check, Gem } from 'lucide-react';
 import { useMeme } from '@/contexts/MemeContext';
 import { Link } from 'react-router-dom';
 import { Separator } from '@/components/ui/separator';
