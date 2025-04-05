@@ -1,15 +1,21 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import NavBar from '@/components/NavBar';
 import Hero from '@/components/Hero';
 import { Button } from '@/components/ui/button';
-import { ChevronRight, BarChart, ShieldCheck, HeartPulse, Zap, ArrowRight, Check, Gem } from 'lucide-react';
+import { ChevronRight, BarChart, ShieldCheck, HeartPulse, Zap, ArrowRight, Check, Gem, MessageCircle, Send, HelpCircle, Plus, Minus, Facebook, Twitter, Instagram, Github, Linkedin } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Textarea } from '@/components/ui/textarea';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Input } from '@/components/ui/input';
 
 const Index = () => {
+  const [chatMessage, setChatMessage] = useState('');
+  
   return (
     <div className="min-h-screen">
       <NavBar />
@@ -349,6 +355,227 @@ const Index = () => {
         </div>
       </section>
 
+      {/* FAQs Section - New */}
+      <section className="py-20 bg-gradient-to-b from-background to-violet-500/5 relative overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden opacity-10">
+          <div className="absolute top-[20%] right-[30%] h-[300px] w-[300px] rounded-full bg-meme-blue blur-3xl" />
+          <div className="absolute bottom-[20%] left-[20%] h-[400px] w-[400px] rounded-full bg-meme-purple blur-3xl" />
+        </div>
+        <div className="container mx-auto px-4">
+          <motion.div 
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Get answers to common questions about our platform and how it can help protect your investments.
+            </p>
+          </motion.div>
+          
+          <div className="max-w-3xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <Accordion type="single" collapsible className="w-full">
+                {[
+                  {
+                    question: "What is MemeGuardian?",
+                    answer: "MemeGuardian is an AI-powered platform designed to analyze memecoin smart contracts, tokenomics, and market dynamics to protect investors from scams and identify promising opportunities."
+                  },
+                  {
+                    question: "How does MemeGuardian detect scams?",
+                    answer: "We use advanced AI algorithms to scan smart contracts for vulnerabilities, analyze token distribution for red flags, monitor liquidity patterns, and identify suspicious on-chain activity that could indicate potential rug pulls or honeypots."
+                  },
+                  {
+                    question: "Is MemeGuardian available on all blockchains?",
+                    answer: "Currently, MemeGuardian supports Ethereum, BNB Chain, and Solana networks. We're actively working to add support for additional blockchain networks in the future."
+                  },
+                  {
+                    question: "How accurate are MemeGuardian's predictions?",
+                    answer: "Our platform has achieved over 93% accuracy in identifying scam tokens before they rug pull. However, the cryptocurrency market is highly volatile and unpredictable, so we cannot guarantee investment results or complete safety from all risks."
+                  },
+                  {
+                    question: "Do I need technical knowledge to use MemeGuardian?",
+                    answer: "No, MemeGuardian is designed to be user-friendly for investors of all experience levels. Our platform translates complex smart contract analysis into easy-to-understand risk scores and recommendations."
+                  },
+                  {
+                    question: "Can MemeGuardian analyze tokens before they launch?",
+                    answer: "Yes, with our Pro and Enterprise plans, you can analyze token contracts before they're publicly launched, giving you an edge in identifying early opportunities or avoiding potential scams."
+                  }
+                ].map((faq, index) => (
+                  <AccordionItem key={index} value={`item-${index}`} className="border-b border-border/50">
+                    <AccordionTrigger className="hover:no-underline py-4 text-left">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-violet-500/10 rounded-full p-2 flex items-center justify-center">
+                          <HelpCircle className="h-4 w-4 text-violet-500" />
+                        </div>
+                        <span className="text-lg font-medium">{faq.question}</span>
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="pl-12 text-muted-foreground">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </motion.div>
+            
+            <motion.div 
+              className="text-center mt-12"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
+              <p className="text-muted-foreground mb-6">
+                Still have questions? Our team is happy to help!
+              </p>
+              <Button size="lg" variant="outline" className="group border-violet-500/30 hover:border-violet-500/60 hover:bg-violet-500/5">
+                Contact Support
+                <MessageCircle className="ml-2 h-4 w-4 group-hover:animate-pulse" />
+              </Button>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Chatbot Section - New */}
+      <section className="py-20 bg-background relative overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden opacity-5">
+          <div className="absolute bottom-[10%] right-[10%] h-[400px] w-[400px] rounded-full bg-meme-neon blur-3xl" />
+          <div className="absolute top-[20%] left-[5%] h-[300px] w-[300px] rounded-full bg-meme-pink blur-3xl" />
+        </div>
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="order-2 md:order-1"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Got Questions? Ask Our AI Assistant</h2>
+              <p className="text-muted-foreground mb-6">
+                Our advanced AI can answer all your questions about memecoins, blockchain technology, and investment strategies in real-time.
+              </p>
+              
+              <div className="bg-card/80 backdrop-blur-sm border border-border/50 rounded-2xl overflow-hidden shadow-lg">
+                <div className="p-4 border-b border-border/50 bg-muted/30 flex items-center gap-3">
+                  <Avatar>
+                    <AvatarImage src="/placeholder.svg" alt="AI" />
+                    <AvatarFallback className="bg-violet-500/20 text-violet-500">AI</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <h4 className="font-medium">MemeGuardian AI</h4>
+                    <p className="text-xs text-muted-foreground">Online 24/7</p>
+                  </div>
+                </div>
+                
+                <div className="p-4 h-[300px] overflow-y-auto flex flex-col space-y-4">
+                  <div className="bg-muted/30 p-3 rounded-xl rounded-tl-none max-w-[80%] self-start">
+                    <p>Hey there! I'm the MemeGuardian AI assistant. How can I help you today with your memecoin investments?</p>
+                  </div>
+                  
+                  <div className="bg-primary/10 p-3 rounded-xl rounded-tr-none max-w-[80%] self-end">
+                    <p>How do I check if a token might be a scam?</p>
+                  </div>
+                  
+                  <div className="bg-muted/30 p-3 rounded-xl rounded-tl-none max-w-[80%] self-start">
+                    <p>Great question! To check if a token might be a scam, you should look for these red flags:</p>
+                    <ul className="list-disc pl-5 mt-2 space-y-1">
+                      <li>Smart contracts that can't be verified</li>
+                      <li>Hidden minting functions</li>
+                      <li>Unusually high dev/team token allocation</li>
+                      <li>Locked liquidity for very short periods</li>
+                      <li>Anonymous teams with no track record</li>
+                    </ul>
+                    <p className="mt-2">MemeGuardian can automatically check all of these factors and more for you!</p>
+                  </div>
+                </div>
+                
+                <div className="p-3 border-t border-border/50 bg-card">
+                  <div className="flex">
+                    <Input 
+                      value={chatMessage}
+                      onChange={(e) => setChatMessage(e.target.value)}
+                      placeholder="Ask a question..."
+                      className="flex-1 bg-muted/20"
+                    />
+                    <Button variant="ghost" className="ml-2 text-primary">
+                      <Send className="h-5 w-5" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="order-1 md:order-2"
+            >
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-violet-500/20 to-teal-500/20 rounded-2xl blur-xl transform rotate-3" />
+                <Card className="relative border border-border/50 shadow-xl backdrop-blur-sm bg-card/80 overflow-hidden">
+                  <CardHeader>
+                    <CardTitle className="text-2xl flex items-center">
+                      <MessageCircle className="h-6 w-6 text-violet-500 mr-2" />
+                      AI Assistant Features
+                    </CardTitle>
+                    <CardDescription>Your 24/7 memecoin investment companion</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-4">
+                      {[
+                        {
+                          title: "Real-time Analysis",
+                          description: "Ask about any token and get instant risk analysis and validation."
+                        },
+                        {
+                          title: "Market Insights",
+                          description: "Get the latest trends, market caps, and volume data for any memecoin."
+                        },
+                        {
+                          title: "Educational Support",
+                          description: "Learn about tokenomics, blockchain concepts, and investment strategies."
+                        },
+                        {
+                          title: "Portfolio Recommendations",
+                          description: "Get personalized advice to optimize your memecoin investments."
+                        }
+                      ].map((feature, index) => (
+                        <li key={index} className="flex items-start gap-3">
+                          <div className="bg-violet-500/10 rounded-full p-2 mt-1">
+                            <Check className="h-4 w-4 text-violet-500" />
+                          </div>
+                          <div>
+                            <h4 className="font-medium">{feature.title}</h4>
+                            <p className="text-sm text-muted-foreground">{feature.description}</p>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                  <CardFooter>
+                    <Button size="lg" className="w-full bg-gradient-to-r from-violet-500 to-teal-500 hover:opacity-90 text-white">
+                      Try AI Assistant Now
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Call to Action */}
       <section className="py-20 bg-gradient-to-br from-violet-500/10 to-pink-500/10 relative overflow-hidden">
         <div className="container mx-auto px-4">
@@ -378,23 +605,86 @@ const Index = () => {
         </div>
       </section>
       
-      {/* Footer */}
-      <footer className="py-12 bg-background border-t">
+      {/* Redesigned Footer */}
+      <footer className="bg-background pt-16 border-t border-border/40">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="mb-6 md:mb-0 flex items-center">
-              <ShieldCheck className="h-8 w-8 text-violet-500 mr-2" />
-              <span className="text-xl font-bold text-gradient bg-gradient-to-r from-violet-500 to-pink-500">MemeGuardian</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-16">
+            <div className="space-y-4">
+              <div className="flex items-center mb-4">
+                <ShieldCheck className="h-8 w-8 text-violet-500 mr-2" />
+                <span className="text-xl font-bold text-gradient bg-gradient-to-r from-violet-500 to-pink-500">MemeGuardian</span>
+              </div>
+              <p className="text-muted-foreground">
+                Protecting investors in the wild world of memecoins with AI-powered analysis and security tools.
+              </p>
+              <div className="flex items-center space-x-4 pt-4">
+                <a href="#" aria-label="Twitter" className="text-muted-foreground hover:text-violet-500 transition-colors">
+                  <Twitter className="h-5 w-5" />
+                </a>
+                <a href="#" aria-label="Facebook" className="text-muted-foreground hover:text-violet-500 transition-colors">
+                  <Facebook className="h-5 w-5" />
+                </a>
+                <a href="#" aria-label="Instagram" className="text-muted-foreground hover:text-violet-500 transition-colors">
+                  <Instagram className="h-5 w-5" />
+                </a>
+                <a href="#" aria-label="Github" className="text-muted-foreground hover:text-violet-500 transition-colors">
+                  <Github className="h-5 w-5" />
+                </a>
+                <a href="#" aria-label="LinkedIn" className="text-muted-foreground hover:text-violet-500 transition-colors">
+                  <Linkedin className="h-5 w-5" />
+                </a>
+              </div>
             </div>
-            <div className="flex gap-6 text-muted-foreground">
-              <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
-              <Link to="/token-analyzer" className="hover:text-foreground transition-colors">Token Analyzer</Link>
-              <Link to="/scam-detector" className="hover:text-foreground transition-colors">Scam Detector</Link>
-              <Link to="/pricing" className="hover:text-foreground transition-colors">Pricing</Link>
+            
+            <div>
+              <h4 className="font-semibold text-lg mb-5">Product</h4>
+              <ul className="space-y-3">
+                {['Features', 'Token Analyzer', 'Scam Detector', 'Portfolio Tracker', 'API', 'Pricing'].map((item, i) => (
+                  <li key={i}>
+                    <Link to={`/${item.toLowerCase().replace(' ', '-')}`} className="text-muted-foreground hover:text-foreground transition-colors">
+                      {item}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold text-lg mb-5">Resources</h4>
+              <ul className="space-y-3">
+                {['Documentation', 'Guides', 'Blog', 'Glossary', 'Market Updates', 'Educational Content'].map((item, i) => (
+                  <li key={i}>
+                    <Link to={`/${item.toLowerCase().replace(' ', '-')}`} className="text-muted-foreground hover:text-foreground transition-colors">
+                      {item}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold text-lg mb-5">Company</h4>
+              <ul className="space-y-3">
+                {['About Us', 'Careers', 'Contact', 'Privacy Policy', 'Terms of Service', 'Press Kit'].map((item, i) => (
+                  <li key={i}>
+                    <Link to={`/${item.toLowerCase().replace(' ', '-')}`} className="text-muted-foreground hover:text-foreground transition-colors">
+                      {item}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
-          <div className="mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
-            <p>© {new Date().getFullYear()} MemeGuardian. All rights reserved.</p>
+          
+          <div className="flex flex-col md:flex-row justify-between items-center py-8 border-t border-border/40">
+            <p className="text-sm text-muted-foreground text-center md:text-left mb-4 md:mb-0">
+              © {new Date().getFullYear()} MemeGuardian. All rights reserved.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
+              <Link to="/privacy-policy" className="hover:text-foreground transition-colors">Privacy Policy</Link>
+              <Link to="/terms" className="hover:text-foreground transition-colors">Terms of Service</Link>
+              <Link to="/cookies" className="hover:text-foreground transition-colors">Cookie Policy</Link>
+            </div>
           </div>
         </div>
       </footer>
