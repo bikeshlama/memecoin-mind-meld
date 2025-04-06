@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import NavBar from '@/components/NavBar';
 import Hero from '@/components/Hero';
@@ -778,7 +777,7 @@ const Index = () => {
           
           <div className="border-t border-border/50 pt-8 flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center gap-2 mb-4 md:mb-0">
-              <Shield className="h-6 w-6 text-meme-purple" />
+              <ShieldCheck className="h-6 w-6 text-meme-purple" />
               <span className="font-bold text-gradient">MemeGuardian</span>
             </div>
             <p className="text-sm text-muted-foreground text-center md:text-right">
