@@ -36,16 +36,6 @@ const NavBar = () => {
                 Dashboard
               </Link>
             )}
-            {isAuthenticated && (
-              <>
-                <Link to="/token-analyzer" className="text-foreground/60 hover:text-foreground transition-colors">
-                  Token Analyzer
-                </Link>
-                <Link to="/scam-detector" className="text-foreground/60 hover:text-foreground transition-colors">
-                  Scam Detector
-                </Link>
-              </>
-            )}
             <Link to="/glossary" className="text-foreground/60 hover:text-foreground transition-colors">
               <BookOpen className="h-4 w-4 mr-1 inline" />
               Glossary

@@ -96,7 +96,7 @@ const DashboardPreview: React.FC = () => {
 
                 <div className="p-6 space-y-3">
                   <div className="flex items-center gap-2 text-lg font-medium">
-                    <Info className="h-5 w-5 text-amber-500" />
+                    <LineChart className="h-5 w-5 text-amber-500" />
                     <span>Portfolio Tracker</span>
                   </div>
                   <p className="text-sm text-muted-foreground">

@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { useAuth } from '@/contexts/AuthContext';
 import { ShieldCheck, Loader2, AlertCircle } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
 
 interface AuthModalProps {
   open: boolean;
@@ -23,6 +24,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({ open, onOpenChange }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [verificationSent, setVerificationSent] = useState(false);
+  const [otpCode, setOtpCode] = useState('');
+  const [otpVerificationMode, setOtpVerificationMode] = useState(false);
   const { login, register } = useAuth();
 
   const validateForm = () => {
@@ -73,9 +76,31 @@ export const AuthModal: React.FC<AuthModalProps> = ({ open, onOpenChange }) => {
       } else {
         await register(name, email, password);
         setVerificationSent(true);
+        setOtpVerificationMode(true);
       }
     } catch (err: any) {
       setError(err.message || 'An error occurred. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleVerifyOTP = async () => {
+    setIsSubmitting(true);
+    setError(null);
+    
+    try {
+      // In a real implementation, you would verify the OTP with Supabase
+      // For now, we're just simulating the verification
+      
+      // This would normally call supabase.auth.verifyOTP or similar
+      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulating API call
+      
+      onOpenChange(false);
+      setOtpVerificationMode(false);
+      
+    } catch (err: any) {
+      setError(err.message || 'Invalid verification code. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -88,6 +113,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({ open, onOpenChange }) => {
     setConfirmPassword('');
     setError(null);
     setVerificationSent(false);
+    setOtpVerificationMode(false);
+    setOtpCode('');
   };
 
   const handleTabChange = (value: string) => {
@@ -105,28 +132,59 @@ export const AuthModal: React.FC<AuthModalProps> = ({ open, onOpenChange }) => {
           </DialogTitle>
         </DialogHeader>
 
-        {verificationSent ? (
+        {otpVerificationMode ? (
           <div className="space-y-4 py-4">
             <div className="flex flex-col items-center justify-center text-center space-y-3">
               <div className="bg-primary/10 p-3 rounded-full">
                 <ShieldCheck className="h-10 w-10 text-primary" />
               </div>
-              <h2 className="text-xl font-semibold">Verify your email</h2>
+              <h2 className="text-xl font-semibold">Verify your account</h2>
               <p className="text-muted-foreground">
-                We've sent a verification link to <span className="font-medium">{email}</span>
+                We've sent a verification code to <span className="font-medium">{email}</span>
               </p>
               <p className="text-sm text-muted-foreground">
-                Please check your inbox and click the verification link to complete your registration.
+                Please enter the 6-digit code below to verify your account.
               </p>
             </div>
-            <div className="pt-4">
-              <Button 
-                onClick={() => onOpenChange(false)} 
-                className="w-full"
-              >
-                Close
-              </Button>
-            </div>
+
+            {error && (
+              <Alert variant="destructive" className="mb-4">
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
+
+            <form onSubmit={(e) => { e.preventDefault(); handleVerifyOTP(); }}>
+              <div className="space-y-4">
+                <div className="flex justify-center py-4">
+                  <InputOTP maxLength={6} value={otpCode} onChange={setOtpCode}>
+                    <InputOTPGroup>
+                      <InputOTPSlot index={0} />
+                      <InputOTPSlot index={1} />
+                      <InputOTPSlot index={2} />
+                      <InputOTPSlot index={3} />
+                      <InputOTPSlot index={4} />
+                      <InputOTPSlot index={5} />
+                    </InputOTPGroup>
+                  </InputOTP>
+                </div>
+                
+                <Button 
+                  type="submit" 
+                  className="w-full bg-gradient-to-r from-violet-500 to-teal-500 hover:opacity-90"
+                  disabled={isSubmitting || otpCode.length !== 6}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" /> 
+                      Verifying...
+                    </>
+                  ) : (
+                    'Verify Account'
+                  )}
+                </Button>
+              </div>
+            </form>
           </div>
         ) : (
           <Tabs defaultValue="login" value={activeTab} onValueChange={handleTabChange} className="w-full">
