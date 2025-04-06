@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import NavBar from '@/components/NavBar';
 import Hero from '@/components/Hero';
@@ -654,4 +655,140 @@ const Index = () => {
           <div className="absolute bottom-[20%] left-[20%] h-[400px] w-[400px] rounded-full bg-meme-purple blur-3xl" />
         </div>
         <div className="container mx-auto px-4">
-          <motion
+          <motion.div 
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Find answers to common questions about MemeGuardian and memecoin investments.
+            </p>
+          </motion.div>
+          
+          <div className="max-w-3xl mx-auto">
+            <Accordion type="single" collapsible className="w-full">
+              {[
+                {
+                  question: "What is MemeGuardian?",
+                  answer: "MemeGuardian is an advanced platform designed to help investors safely navigate the memecoin market. We use AI-powered analytics to identify potential scams, assess token security, and provide insights for better investment decisions."
+                },
+                {
+                  question: "How does MemeGuardian detect scams?",
+                  answer: "Our AI scans smart contracts for malicious code, analyzes token distribution patterns, monitors liquidity locks, and evaluates team backgrounds. We look for red flags like hidden minting functions, ownership renunciation issues, and suspicious transaction patterns."
+                },
+                {
+                  question: "Is MemeGuardian suitable for beginners?",
+                  answer: "Absolutely! We designed MemeGuardian with both beginners and experienced traders in mind. Our user-friendly interface provides clear risk assessments and educational resources to help new investors make informed decisions."
+                },
+                {
+                  question: "Why should I choose a paid plan?",
+                  answer: "Paid plans offer advanced features like real-time monitoring, deeper contract analysis, portfolio tracking, and unlimited access to our AI assistant. These tools provide a comprehensive security blanket for your investments and can help you identify opportunities faster."
+                },
+                {
+                  question: "How accurate is MemeGuardian's analysis?",
+                  answer: "Our analysis is highly accurate, but cryptocurrency investments always carry risk. We provide a confidence score with each analysis and continuously improve our AI models based on new scam patterns and market developments."
+                }
+              ].map((faq, index) => (
+                <AccordionItem key={index} value={`item-${index}`}>
+                  <AccordionTrigger className="text-left">{faq.question}</AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+            
+            <div className="mt-10 text-center">
+              <p className="mb-4 text-muted-foreground">
+                Still have questions? We're here to help!
+              </p>
+              <Button variant="outline" className="bg-card">
+                <MessageCircle className="mr-2 h-4 w-4" />
+                Contact Support
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Footer */}
+      <footer className="py-16 bg-background/90 border-t border-border/20">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
+            <div>
+              <h3 className="font-bold text-lg mb-4">MemeGuardian</h3>
+              <ul className="space-y-2">
+                <li><Link to="/" className="text-muted-foreground hover:text-primary transition-colors">Home</Link></li>
+                <li><Link to="/token-analyzer" className="text-muted-foreground hover:text-primary transition-colors">Token Analyzer</Link></li>
+                <li><Link to="/scam-detector" className="text-muted-foreground hover:text-primary transition-colors">Scam Detector</Link></li>
+                <li><Link to="/glossary" className="text-muted-foreground hover:text-primary transition-colors">Glossary</Link></li>
+                <li><Link to="/pricing" className="text-muted-foreground hover:text-primary transition-colors">Pricing</Link></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 className="font-bold text-lg mb-4">Resources</h3>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Blog</a></li>
+                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Documentation</a></li>
+                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">API</a></li>
+                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Community</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 className="font-bold text-lg mb-4">Legal</h3>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Terms of Service</a></li>
+                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Privacy Policy</a></li>
+                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Disclaimer</a></li>
+                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Cookie Policy</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 className="font-bold text-lg mb-4">Connect</h3>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Contact</a></li>
+                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Support</a></li>
+                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Careers</a></li>
+              </ul>
+              <div className="flex items-center gap-4 mt-6">
+                <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <Twitter className="h-5 w-5" />
+                </a>
+                <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <Facebook className="h-5 w-5" />
+                </a>
+                <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <Instagram className="h-5 w-5" />
+                </a>
+                <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <Github className="h-5 w-5" />
+                </a>
+                <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <Linkedin className="h-5 w-5" />
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <div className="border-t border-border/50 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <div className="flex items-center gap-2 mb-4 md:mb-0">
+              <Shield className="h-6 w-6 text-meme-purple" />
+              <span className="font-bold text-gradient">MemeGuardian</span>
+            </div>
+            <p className="text-sm text-muted-foreground text-center md:text-right">
+              © 2025 MemeGuardian. All rights reserved. Protecting your memecoin investments with AI.
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default Index;
