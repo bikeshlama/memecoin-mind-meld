@@ -1,5 +1,7 @@
 
 import React, { createContext, useState, useContext, useEffect } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from '@/components/ui/use-toast';
 
 interface User {
   id: string;
@@ -27,11 +29,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        // Simulate checking localStorage for a saved user session
-        const savedUser = localStorage.getItem('memeguardian_user');
+        setIsLoading(true);
         
-        if (savedUser) {
-          setUser(JSON.parse(savedUser));
+        // Get the current session
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        if (session?.user) {
+          const { id, email, user_metadata } = session.user;
+          
+          setUser({
+            id,
+            email: email || '',
+            name: user_metadata?.name || email?.split('@')[0] || 'User',
+            avatar: `https://api.dicebear.com/6.x/avataaars/svg?seed=${email}`
+          });
         }
       } catch (error) {
         console.error('Authentication check failed:', error);
@@ -39,58 +50,109 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setIsLoading(false);
       }
     };
-
+    
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        if (session?.user) {
+          const { id, email, user_metadata } = session.user;
+          
+          setUser({
+            id,
+            email: email || '',
+            name: user_metadata?.name || email?.split('@')[0] || 'User',
+            avatar: `https://api.dicebear.com/6.x/avataaars/svg?seed=${email}`
+          });
+        } else {
+          setUser(null);
+        }
+        setIsLoading(false);
+      }
+    );
+    
     checkAuth();
+    
+    // Cleanup subscription on unmount
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
-
+  
   // Login function
   const login = async (email: string, password: string) => {
-    setIsLoading(true);
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // For demo purposes, auto-succeed with mock data
-      const mockUser = {
-        id: '1',
-        name: email.split('@')[0],
+      setIsLoading(true);
+      const { error } = await supabase.auth.signInWithPassword({
         email,
-        avatar: `https://api.dicebear.com/6.x/avataaars/svg?seed=${email}`
-      };
+        password,
+      });
       
-      setUser(mockUser);
-      localStorage.setItem('memeguardian_user', JSON.stringify(mockUser));
+      if (error) throw error;
+      
+      toast({
+        title: "Welcome back!",
+        description: "You've been successfully logged in.",
+      });
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Login failed",
+        description: error.message || "Something went wrong. Please try again.",
+      });
+      throw error;
     } finally {
       setIsLoading(false);
     }
   };
-
-  // Register function
+  
+  // Register function with email verification
   const register = async (name: string, email: string, password: string) => {
-    setIsLoading(true);
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // For demo purposes, auto-succeed with mock data
-      const mockUser = {
-        id: Math.random().toString(36).substring(2, 15),
-        name,
+      setIsLoading(true);
+      const { error } = await supabase.auth.signUp({
         email,
-        avatar: `https://api.dicebear.com/6.x/avataaars/svg?seed=${email}`
-      };
+        password,
+        options: {
+          emailRedirectTo: window.location.origin,
+          data: {
+            name,
+          },
+        },
+      });
       
-      setUser(mockUser);
-      localStorage.setItem('memeguardian_user', JSON.stringify(mockUser));
+      if (error) throw error;
+      
+      toast({
+        title: "Verification email sent",
+        description: "Please check your email to verify your account before logging in.",
+      });
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Registration failed",
+        description: error.message || "Something went wrong. Please try again.",
+      });
+      throw error;
     } finally {
       setIsLoading(false);
     }
   };
-
+  
   // Logout function
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem('memeguardian_user');
+  const logout = async () => {
+    try {
+      await supabase.auth.signOut();
+      toast({
+        title: "Logged out",
+        description: "You have been successfully logged out.",
+      });
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Logout failed",
+        description: error.message || "Something went wrong. Please try again.",
+      });
+    }
   };
 
   return (

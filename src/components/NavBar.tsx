@@ -1,16 +1,17 @@
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/ModeToggle';
-import { ShieldCheck } from 'lucide-react';
+import { ShieldCheck, LayoutDashboard } from 'lucide-react';
 import { AuthModal } from './auth/AuthModal';
 import { UserMenu } from './auth/UserMenu';
 import { useAuth } from '@/contexts/AuthContext';
 
 const NavBar = () => {
   const [authModalOpen, setAuthModalOpen] = useState(false);
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -26,6 +27,15 @@ const NavBar = () => {
         
         <div className="flex items-center gap-4 md:gap-6">
           <nav className="hidden md:flex items-center gap-6">
+            {isAuthenticated && (
+              <Link 
+                to="/dashboard" 
+                className="flex items-center text-foreground/60 hover:text-foreground transition-colors"
+              >
+                <LayoutDashboard className="h-4 w-4 mr-1" />
+                Dashboard
+              </Link>
+            )}
             <Link to="/token-analyzer" className="text-foreground/60 hover:text-foreground transition-colors">
               Token Analyzer
             </Link>
