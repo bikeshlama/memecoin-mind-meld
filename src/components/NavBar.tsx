@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/ModeToggle';
-import { ShieldCheck, LayoutDashboard } from 'lucide-react';
+import { ShieldCheck, LayoutDashboard, BookOpen } from 'lucide-react';
 import { AuthModal } from './auth/AuthModal';
 import { UserMenu } from './auth/UserMenu';
 import { useAuth } from '@/contexts/AuthContext';
@@ -36,11 +36,19 @@ const NavBar = () => {
                 Dashboard
               </Link>
             )}
-            <Link to="/token-analyzer" className="text-foreground/60 hover:text-foreground transition-colors">
-              Token Analyzer
-            </Link>
-            <Link to="/scam-detector" className="text-foreground/60 hover:text-foreground transition-colors">
-              Scam Detector
+            {isAuthenticated && (
+              <>
+                <Link to="/token-analyzer" className="text-foreground/60 hover:text-foreground transition-colors">
+                  Token Analyzer
+                </Link>
+                <Link to="/scam-detector" className="text-foreground/60 hover:text-foreground transition-colors">
+                  Scam Detector
+                </Link>
+              </>
+            )}
+            <Link to="/glossary" className="text-foreground/60 hover:text-foreground transition-colors">
+              <BookOpen className="h-4 w-4 mr-1 inline" />
+              Glossary
             </Link>
             <Link to="/pricing" className="text-foreground/60 hover:text-foreground transition-colors">
               Pricing

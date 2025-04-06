@@ -4,6 +4,7 @@ import { Shield, Coins, Zap, ChevronRight, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import DashboardPreview from './DashboardPreview';
 
 const Hero = () => {
   return (
@@ -148,6 +149,9 @@ const Hero = () => {
           </motion.div>
         </div>
       </div>
+      
+      {/* Dashboard Preview Section */}
+      <DashboardPreview />
       
       {/* Curved divider */}
       <div className="absolute bottom-0 left-0 w-full overflow-hidden">
