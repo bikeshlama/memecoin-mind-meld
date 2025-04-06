@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from './ModeToggle';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Coins, Menu, Search, Shield, UserPlus } from 'lucide-react';
+import { Coins, Menu, Search, ShieldCheck, UserPlus } from 'lucide-react';
 
 const NavBar = () => {
   return (
@@ -12,7 +12,7 @@ const NavBar = () => {
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-2">
           <Link to="/" className="flex items-center gap-2">
-            <Shield className="h-8 w-8 text-meme-purple animate-pulse" />
+            <ShieldCheck className="h-8 w-8 text-meme-purple animate-pulse" />
             <span className="font-bold text-xl text-gradient hidden sm:inline-block">MemeGuardian</span>
           </Link>
         </div>
@@ -57,7 +57,7 @@ const NavBar = () => {
             <SheetContent side="right">
               <div className="flex flex-col gap-4 mt-8">
                 <Link to="/" className="flex items-center gap-3 px-2 py-1 rounded-md hover:bg-accent">
-                  <Shield className="h-5 w-5" />
+                  <ShieldCheck className="h-5 w-5" />
                   <span>Home</span>
                 </Link>
                 <Link to="/token-analyzer" className="flex items-center gap-3 px-2 py-1 rounded-md hover:bg-accent">
@@ -65,7 +65,7 @@ const NavBar = () => {
                   <span>Token Analyzer</span>
                 </Link>
                 <Link to="/scam-detector" className="flex items-center gap-3 px-2 py-1 rounded-md hover:bg-accent">
-                  <Shield className="h-5 w-5" />
+                  <ShieldCheck className="h-5 w-5" />
                   <span>Scam Detector</span>
                 </Link>
                 <Link to="/glossary" className="flex items-center gap-3 px-2 py-1 rounded-md hover:bg-accent">
